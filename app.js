@@ -1,6 +1,7 @@
 // require package used in the project
 const express = require("express");
 const exphbs = require("express-handlebars");
+const bodyParser = require("body-parser");
 const RestaurantListModels = require("./models/restaurant")
 const mongoose = require("mongoose")
 const app = express();
@@ -9,6 +10,8 @@ const port = 3000;
 // setting template engine
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // setting static files
 app.use(express.static("public"));
@@ -35,17 +38,20 @@ app.get("/", (req, res) => {
     .catch(error => console.log(error)) //錯誤處理
 });
 
-app.get("/restaurants/:restaurant_id", (req, res) => {
-  // past the restaurant data into 'show' partial template
+// new
+app.get("/new", (req, res) => {
+  return res.render("new")
+})
 
-  console.log("req.params.restaurant_id", req.params.restaurant_id);
+app.post("/restaurant", (req, res) => {
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body;
 
-  const restaurant = restaurantList.results.find(
-    restaurant => restaurant.id.toString() === req.params.restaurant_id
-  );
+  return RestaurantListModels
+    .create({ name, name_en, category, image, location, phone, google_map, rating, description })
+    .then(() => res.redirect("/"))
+    .catch((error) => console.log(error))
+})
 
-  res.render("show", { restaurants: restaurant });
-});
 
 app.get("/search", (req, res) => {
   // console.log("req.query", req.query);
