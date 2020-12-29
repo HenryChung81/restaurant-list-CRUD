@@ -29,12 +29,12 @@ db.once("open", () => {
   console.log("mongodb connected!")
 })
 
-// routes setting
+// index
 app.get("/", (req, res) => {
   // past the restaurant data into 'index' partial template
-  RestaurantListModels.find() //取出 RestaurantListModels 裡面的所有資料
+  RestaurantListModels.find() // 取出 RestaurantListModels 裡面的所有資料
     .lean() //把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render("index", { restaurants })) //將資料傳給 index 樣板
+    .then(restaurants => res.render("index", { restaurants })) // 將資料傳給 index 樣板
     .catch(error => console.log(error)) //錯誤處理
 });
 
@@ -52,7 +52,22 @@ app.post("/restaurant", (req, res) => {
     .catch((error) => console.log(error))
 })
 
+// detail
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id
+  return RestaurantListModels
+    .findById(id)
+    .lean()
+    .then(restaurants => res.render('detail', { restaurants }))
+})
 
+
+
+
+
+
+
+// search
 app.get("/search", (req, res) => {
   // console.log("req.query", req.query);
   const keyword = req.query.keyword;
