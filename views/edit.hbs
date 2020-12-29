@@ -1,10 +1,10 @@
 <div class="container p-5">
-  <form action="/restaurant" method='psot'>
+  <form action="/restaurant/{{restaurants._id}}/edit" method='post'>
     <!--name-->
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">餐廳名稱 - 中文*</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" name='name' placeholder="餐廳">
+        <input type="text" class="form-control" id="name" name="name" value="{{restaurants.name}}" placeholder="餐廳">
       </div>
     </div>
 
@@ -12,7 +12,8 @@
     <div class="form-group row">
       <label for="name_en" class="col-sm-2 col-form-label">餐廳名稱 - 英文</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="name_en" name='name_en' placeholder="Restaurant">
+        <input type="text" class="form-control" id="name_en" name='name_en' value="{{restaurants.name_en}}"
+          placeholder="Restaurant">
       </div>
     </div>
 
@@ -20,7 +21,8 @@
     <div class="form-group row">
       <label for="category" class="col-sm-2 col-form-label">餐廳類別</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="category" name='category' placeholder="Category">
+        <input type="text" class="form-control" id="category" name='category' value="{{restaurants.category}}"
+          placeholder="Category">
         <label for="category">中東料理 | 日本料理 | 義式餐廳 | 美式 | 酒吧 | 咖啡 | 其他</label>
       </div>
     </div>
@@ -29,15 +31,16 @@
     <div class="form-group row">
       <label for="image" class="col-sm-2 col-form-label">上傳餐廳照片</label>
       <div class="col-sm-10">
-        <input type="file" class="form-control-file" id="image" name='image'>
+        <input type="text" class="form-control-file" id="image" name="image" value="{{restaurants.image}}">
       </div>
     </div>
 
     <!--location-->
-    <div class="form-group row">
+    <div class=" form-group row">
       <label for="location" class="col-sm-2 col-form-label">餐廳地址</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="location" name='location' placeholder="">
+        <input type="text" class="form-control" id="location" name="location" value="{{restaurants.location}}"
+          placeholder="">
       </div>
     </div>
 
@@ -69,10 +72,11 @@
     </div> --}}
 
     <!--phone-->
-    <div class="form-group row">
+    <div class=" form-group row">
       <label for="phone" class="col-sm-2 col-form-label">餐廳電話</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="phone" name='phone' placeholder="02 1234 5678">
+        <input type="text" class="form-control" id="phone" name="phone" value="{{restaurants.phone}}"
+          placeholder="02 1234 5678">
       </div>
     </div>
 
@@ -80,7 +84,7 @@
     <div class="form-group row">
       <label for="google_map" class="col-sm-2 col-form-label">Google Map</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="google_map" name='google_map'
+        <input type="text" class="form-control" id="google_map" name="google_map" value="{{restaurants.google_map}}"
           placeholder="https://goo.gl/maps/zbERa4N1jkcHYjHk6">
       </div>
     </div>
@@ -89,7 +93,8 @@
     <div class="form-group row">
       <label for="rating" class="col-sm-2 col-form-label">評分</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="rating" name='rating' placeholder="4.0">
+        <input type="text" class="form-control" id="rating" name="rating" value="{{restaurants.rating}}"
+          placeholder="4.0">
       </div>
     </div>
 
@@ -97,7 +102,8 @@
     <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">描述</label>
       <div class="col-sm-10">
-        <textarea class="form-control" id="description" rows="3" maxlength="180" name='description'></textarea>
+        <input type="text" class="form-control" id="description" name="description"
+          value="{{restaurants.description}}"></input>
       </div>
     </div>
 
