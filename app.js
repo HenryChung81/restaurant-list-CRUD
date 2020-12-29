@@ -90,6 +90,15 @@ app.post("/restaurant/:id/edit", (req, res) => {
     .catch(err => console.log(error))
 })
 
+// delete
+app.post("/restaurant/:id/delete", (req, res) => {
+  const id = req.params.id
+  return RestaurantListModels.findById(id)
+    .then((restaurants => restaurants.remove()))
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // search
 app.get("/search", (req, res) => {
   // console.log("req.query", req.query);
