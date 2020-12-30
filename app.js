@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
   // past the restaurant data into 'index' partial template
   RestaurantListModels.find() // 取出 RestaurantListModels 裡面的所有資料
     .lean() //把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render("index", { restaurants })) // 將資料傳給 index 樣板
+    .then(RestaurantListModels => res.render("index", { RestaurantListModels })) // 將資料傳給 index 樣板
     .catch(error => console.log(error)) //錯誤處理
 });
 
@@ -101,13 +101,18 @@ app.post("/restaurant/:id/delete", (req, res) => {
 
 // search
 app.get("/search", (req, res) => {
-  // console.log("req.query", req.query);
-  const keyword = req.query.keyword;
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase());
-  });
-  res.render("index", { restaurants: restaurants, keyword: keyword });
-});
+  const keyword = req.query.keyword.trim().toLowerCase();
+  RestaurantListModels
+    .find()
+    .lean()
+    .then((RestaurantListModels) => {
+      const searchRestaurant = RestaurantListModels.filter(RestaurantListModels => {
+        return (RestaurantListModels.name.toLowerCase().includes(keyword) || RestaurantListModels.category.toLowerCase().includes(keyword))
+      })
+      res.render("index", { RestaurantListModels: searchRestaurant, keyword: keyword })
+    })
+    .catch(error => console.log(error))
+})
 
 // start and listen the Express server
 app.listen(port, () => {
